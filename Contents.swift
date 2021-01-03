@@ -39,7 +39,7 @@ class TipViewController: UIViewController {
             messageView: messageLabel,
             sourceView: showButton,
             containerView: view,
-            position: .upon,
+            position: .below,
             leftMargin: 16,
             rightMargin: 16
         )
