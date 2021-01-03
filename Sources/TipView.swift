@@ -6,9 +6,13 @@ import UIKit
 public class TipView: UIView {
     
     public struct TipViewPrefenreces {
+        /// The view that is shown inside TipView. It can be any custom UIView.
         let messageView: UIView
+        /// According to this view the tooltip is positioned
         let sourceView: UIView
+        /// Container over tooltip
         weak var containerView: UIView?
+        /// Position for tooltip
         let position: TipPosition
         let leftMargin: CGFloat
         let rightMargin: CGFloat
@@ -32,6 +36,7 @@ public class TipView: UIView {
     private let tailWidth: CGFloat = 20
     private let tailHeight: CGFloat = 10
     
+    /// Tail for TipView
     private lazy var tailView: UIView = {
         let tailView = UIView()
         tailView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +65,7 @@ public class TipView: UIView {
     }
     
     private func showTail() {
+        /// Transform tail if TipView should be shown below of sourceview
         if preferences.position == .below {
             tailView.transform = tailView.transform.rotated(by: CGFloat(Double.pi))
         }
@@ -70,6 +76,7 @@ public class TipView: UIView {
         tailView.layer.addSublayer(shapeLayer)
     }
     
+    /// Draw tail
     private func getTailPath() -> CGPath {
         let bezier = UIBezierPath()
         bezier.move(to: CGPoint(x: tailWidth / 2, y: tailHeight))
@@ -78,10 +85,6 @@ public class TipView: UIView {
         bezier.addCurve(to: CGPoint(x: tailWidth / 2, y: tailHeight), controlPoint1: CGPoint(x: tailWidth, y: 0), controlPoint2: CGPoint(x: tailWidth / 2, y: tailHeight / 2))
         bezier.close()
         return bezier.cgPath
-    }
-    
-    @objc func dismiss() {
-        removeFromSuperview()
     }
     
     private func setup() {
